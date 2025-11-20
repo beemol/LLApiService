@@ -109,7 +109,7 @@ class MockNetworkService: LLNetworkServiceProtocol {
         self.httpResponse = httpResponse
     }
     
-    func send(request: URLRequest, urlSession: URLSessionProtocol) async throws -> (Data, URLResponse) {
+    func send(request: URLRequest) async throws -> (Data, URLResponse) {
         guard !shouldThrow else { throw LLAPIError.httpError(HTTPURLResponse()) }
         
         if let httpResponse = httpResponse {

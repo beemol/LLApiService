@@ -17,12 +17,19 @@ extension URLSession: URLSessionProtocol {}
 
 @available(iOS 13.0.0, macOS 10.15, *)
 public protocol LLNetworkServiceProtocol {
-    func send(request: URLRequest, urlSession: URLSessionProtocol) async throws -> (Data, URLResponse)
+    func send(request: URLRequest) async throws -> (Data, URLResponse)
 }
 
+// MARK: - Default Network Service Implementation
 @available(iOS 13.0.0, macOS 10.15, *)
-public extension LLNetworkServiceProtocol {
-    func send(request: URLRequest, urlSession: URLSessionProtocol) async throws -> (Data, URLResponse) {
+public class LLNetworkService: LLNetworkServiceProtocol {
+    private let urlSession: URLSessionProtocol
+    
+    public init(urlSession: URLSessionProtocol = URLSession.shared) {
+        self.urlSession = urlSession
+    }
+    
+    public func send(request: URLRequest) async throws -> (Data, URLResponse) {
         try await urlSession.data(for: request)
     }
 }

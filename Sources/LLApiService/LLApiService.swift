@@ -40,7 +40,7 @@ public class LLApiService<Output> {
         let request = try requestBuilder.createRequest()
         
         // 2. Execute network call
-        let (data, response) = try await networkService.send(request: request, urlSession: URLSession.shared)
+        let (data, response) = try await networkService.send(request: request)
         
         // 3. Check HTTP status code
         if let httpResponse = response as? HTTPURLResponse, !(200...299).contains(httpResponse.statusCode) {
