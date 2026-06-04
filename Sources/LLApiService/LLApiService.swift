@@ -23,11 +23,11 @@ public class LLApiService<Output> {
     // closure to use LLResponseParserProtocol parsing logic
     private var parseClosure: (Data) throws -> Output
     
-    public init<P: LLResponseParserProtocol>(requestBuilder: LLAPIRequestBuilder,
-                                      networkService: LLNetworkServiceProtocol,
-                                      errorDetector: LLDomainErrorDetector? = nil,
-                                      analyticsTracker: LLAnalyticsTracker? = nil,
-                                      parser: P) where P.Output == Output {
+    public init(requestBuilder: LLAPIRequestBuilder,
+                networkService: LLNetworkServiceProtocol,
+                 errorDetector: LLDomainErrorDetector? = nil,
+              analyticsTracker: LLAnalyticsTracker? = nil,
+                        parser: any LLResponseParserProtocol<Output>) {
         self.requestBuilder = requestBuilder
         self.networkService = networkService
         self.errorDetector = errorDetector

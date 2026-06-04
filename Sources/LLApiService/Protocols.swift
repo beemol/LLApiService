@@ -50,7 +50,7 @@ public protocol LLAnalyticsTracker {
 }
 
 // MARK: - Response Parsing (injected by client app)
-public protocol LLResponseParserProtocol {
+public protocol LLResponseParserProtocol<Output> {
     associatedtype Output
     
     func parse(data: Data) throws -> Output
