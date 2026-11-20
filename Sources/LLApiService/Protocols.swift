@@ -16,13 +16,13 @@ public protocol URLSessionProtocol: Sendable {
 extension URLSession: URLSessionProtocol {}
 
 @available(iOS 13.0.0, macOS 10.15, *)
-public protocol LLNetworkServiceProtocol {
+public protocol LLNetworkServiceProtocol: Sendable {
     func send(request: URLRequest) async throws -> (Data, URLResponse)
 }
 
 // MARK: - Default Network Service Implementation
 @available(iOS 13.0.0, macOS 10.15, *)
-public class LLNetworkService: LLNetworkServiceProtocol {
+public final class LLNetworkService: LLNetworkServiceProtocol {
     private let urlSession: URLSessionProtocol
     
     public init(urlSession: URLSessionProtocol = URLSession.shared) {
@@ -39,7 +39,7 @@ public protocol LLAPIRequestBuilder {
 }
 
 // MARK: - Domain error detector (optionally injected by client app)
-public protocol LLDomainErrorDetector {
+public protocol LLDomainErrorDetector: Sendable {
     /// - Throws: Domain-specific error if detected
     /// - Returns: Silently if no error found
     func detectError(data: Data, response: URLResponse) throws

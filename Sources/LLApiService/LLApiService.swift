@@ -13,6 +13,7 @@ public enum LLAPIError: Error, Equatable {
 }
 
 @available(iOS 13.0.0, macOS 10.15, *)
+@MainActor
 public class LLApiService<Output> {
     private let requestBuilder: LLAPIRequestBuilder
     private let networkService: LLNetworkServiceProtocol
@@ -21,7 +22,7 @@ public class LLApiService<Output> {
     private let analyticsTracker: LLAnalyticsTracker?
     
     // closure to use LLResponseParserProtocol parsing logic
-    private var parseClosure: (Data) throws -> Output
+    private let parseClosure: (Data) throws -> Output
     
     public init(requestBuilder: LLAPIRequestBuilder,
                 networkService: LLNetworkServiceProtocol,
